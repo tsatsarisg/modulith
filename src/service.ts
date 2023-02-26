@@ -32,7 +32,7 @@ export default class Service {
     return server;
   }
 
-  setRoutes() {
+  private setRoutes() {
     const v1Routes = routes.v1(this);
 
     this.app.use("/api/v1", Object.values(v1Routes));
