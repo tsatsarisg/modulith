@@ -1,19 +1,40 @@
-import express from "express"
-import cors from "cors"
-import dotenv from "dotenv"
+import express, { Express } from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+//import routes from "./routes/franchise.js"
+import routes from "./routes.js";
 
-const app = express()
-dotenv.config();
+export default class Service {
+  app: Express;
+  private port?: string;
 
-const port = process.env.PORT_NUMBER;
+  constructor() {
+    this.app = express();
+    dotenv.config();
+    this.port = process.env.PORT_NUMBER;
+  }
 
-app.use(express.json())
-app.use(cors({}))
+  init() {
+    this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: `http://localhost:${this.port}`,
+      })
+    );
+  }
 
-app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
-});
-  
-app.listen(port, () => {
-console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+  start() {
+    this.setRoutes();
+    const server = this.app.listen(this.port, () => {
+      console.log(`⚡️ Server is running at http://localhost:${this.port}`);
+    });
+
+    return server;
+  }
+
+  setRoutes() {
+    const v1Routes = routes.v1(this);
+
+    this.app.use("/api/v1", Object.values(v1Routes));
+  }
+}
