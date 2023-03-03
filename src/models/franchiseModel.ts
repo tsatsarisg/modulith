@@ -1,4 +1,4 @@
-import { FranchiseCategories } from "../ts/interfaces/Franchise.js";
+import { FranchiseCategories } from "../ts/interfaces/FranchiseInterfaces.js";
 
 export default class Franchise {
   private name: string;
