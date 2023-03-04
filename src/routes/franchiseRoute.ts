@@ -8,7 +8,17 @@ const router = (microservice: Service) => {
 
   servicePaths.get(
     "/franchise",
-    franchiseController.index.bind(franchiseController)
+    franchiseController.get.bind(franchiseController)
+  );
+
+  servicePaths.post(
+    "/franchise",
+    franchiseController.create.bind(franchiseController)
+  );
+
+  servicePaths.delete(
+    "/franchise/:id",
+    franchiseController.delete.bind(franchiseController)
   );
 
   return servicePaths;
