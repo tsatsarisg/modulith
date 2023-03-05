@@ -11,7 +11,7 @@ export default class Service {
 
   constructor() {
     this.app = express();
-    this.port = envs.PORT_NUMBER;
+    this.port = envs("PORT_NUMBER");
   }
 
   init() {
@@ -41,16 +41,16 @@ export default class Service {
 
   private async createConnection() {
     const dbName = "microserviceDB";
-    const client = new MongoClient(envs.DOCKER_MONGO_URL);
+    const client = new MongoClient(envs("DOCKER_MONGO_URL"));
 
     try {
       await client.connect();
       console.log("Connected to MongoDB!");
 
-      const db = client.db(envs.DB_NAME);
+      const db = client.db(envs("DB_NAME"));
 
       // this.collection = await db.createCollection(collectionName);
-      this.collection = db.collection(envs.COLLECTION_NAME);
+      this.collection = db.collection(envs("COLLECTION_NAME"));
     } catch (err) {
       console.error(err);
     } finally {
