@@ -1,1 +1,1 @@
-export type FranchiseCategories = "Carwash" | "Bakery";
+export type FranchiseCategories = 'Carwash' | 'Bakery'

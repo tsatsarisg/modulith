@@ -1,6 +1,6 @@
-import Service from "./service.js";
+import Service from './service.js'
 
-const microservice = new Service();
+const microservice = new Service()
 
-microservice.init();
-microservice.start();
+microservice.init()
+microservice.start()
