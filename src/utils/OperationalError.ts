@@ -1,4 +1,4 @@
-import { EError, ErrorTypes } from '../ts/types/FranchiseTypes.js'
+import { EError } from '../ts/types/FranchiseTypes.js'
 
 export class OperationalError extends Error {
     type: EError

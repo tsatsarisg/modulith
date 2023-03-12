@@ -4,5 +4,5 @@ export enum EError {
     NotFound = 404,
     InternalServerError = 500,
 }
-export type ErrorTypes = EError
+
 export type FranchiseCategories = 'Carwash' | 'Bakery'
