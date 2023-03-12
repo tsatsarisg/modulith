@@ -1,10 +1,12 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import Service from '../service.js'
 import FranchiseService from '../services/franchiseService.js'
 import {
     FranchiseGetRequest,
     IFranchise,
 } from '../ts/interfaces/FranchiseInterfaces.js'
+import { EError } from '../ts/types/FranchiseTypes.js'
+import { OperationalError } from '../utils/OperationalError.js'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService
@@ -14,7 +16,7 @@ export default class FranchiseController {
         this.franchiseService = new FranchiseService(this.microservice)
     }
 
-    async get(req: FranchiseGetRequest, res: Response) {
+    async get(req: FranchiseGetRequest, res: Response, next: NextFunction) {
         const { id } = req.query
         let filters = {}
 
@@ -23,17 +25,17 @@ export default class FranchiseController {
                 id: String(id),
             }
 
-        return res
-            .status(200)
-            .json(await this.franchiseService.getFranchises(filters))
+        const franchises = await this.franchiseService.getFranchises(filters)
+
+        return res.status(200).json(franchises)
     }
 
     async create(req: Request, res: Response) {
         const franchiseProps: IFranchise = { ...req.body }
 
-        return res.json(
-            await this.franchiseService.createFranchise(franchiseProps)
-        )
+        return res
+            .status(201)
+            .json(await this.franchiseService.createFranchise(franchiseProps))
     }
 
     async delete(req: Request, res: Response) {

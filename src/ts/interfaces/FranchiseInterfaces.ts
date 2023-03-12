@@ -1,5 +1,5 @@
 import { Request } from 'express'
-import { FranchiseCategories } from '../types/FranchiseTypes.js'
+import { ErrorTypes, FranchiseCategories } from '../types/FranchiseTypes.js'
 
 export interface IFranchise {
     name: string
@@ -8,4 +8,10 @@ export interface IFranchise {
 
 export interface FranchiseGetRequest extends Request {
     id?: string
+}
+
+export interface IError {
+    message: string
+    code: string
+    type: ErrorTypes
 }

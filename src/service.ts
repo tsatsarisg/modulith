@@ -3,6 +3,7 @@ import cors from 'cors'
 import { MongoClient, Collection } from 'mongodb'
 import routes from './routes.js'
 import envs from './utils/env.js'
+import errorHandler from './middlewares/errorHandler.js'
 
 export default class Service {
     app: Express
@@ -26,6 +27,8 @@ export default class Service {
     async start() {
         await this.createConnection()
         this.setRoutes()
+        this.app.use(errorHandler)
+
         const server = this.app.listen(this.port, () => {
             console.log(
                 `⚡️ Server is running at http://localhost:${this.port}`

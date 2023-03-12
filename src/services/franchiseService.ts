@@ -2,6 +2,8 @@ import { MongoServerError, ObjectId } from 'mongodb'
 import Franchise from '../models/franchiseModel.js'
 import Service from '../service.js'
 import { IFranchise } from '../ts/interfaces/FranchiseInterfaces.js'
+import { EError } from '../ts/types/FranchiseTypes.js'
+import { OperationalError } from '../utils/OperationalError.js'
 
 export default class FranchiseService {
     constructor(private microservice: Service) {

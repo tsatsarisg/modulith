@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import FranchiseController from '../controllers/franchiseController.js'
 import Service from '../service.js'
+import errorWrapper from '../utils/errorWrapper.js'
 
 const router = (microservice: Service) => {
     const servicePaths = Router()
@@ -8,7 +9,7 @@ const router = (microservice: Service) => {
 
     servicePaths.get(
         '/franchises',
-        franchiseController.get.bind(franchiseController)
+        errorWrapper(franchiseController.get.bind(franchiseController))
     )
 
     servicePaths.post(
