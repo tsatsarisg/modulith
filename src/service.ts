@@ -1,9 +1,9 @@
 import express, { Express } from 'express'
 import cors from 'cors'
 import { MongoClient, Collection } from 'mongodb'
-import routes from './routes.js'
-import envs from './utils/env.js'
-import errorHandler from './middlewares/errorHandler.js'
+import routes from './routes'
+import envs from './utils/env'
+import errorHandler from './middlewares/errorHandler'
 
 export default class Service {
     app: Express
@@ -54,7 +54,7 @@ export default class Service {
 
             const db = client.db(envs('DB_NAME'))
 
-            // this.collection = await db.createCollection(collectionName);
+            //this.collection = await db.createCollection(envs('DB_NAME'));
             this.collection = db.collection(envs('COLLECTION_NAME'))
         } catch (err) {
             console.error(err)

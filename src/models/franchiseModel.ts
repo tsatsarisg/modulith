@@ -1,5 +1,5 @@
-import { IFranchise } from '../ts/interfaces/FranchiseInterfaces.js'
-import { FranchiseCategories } from '../ts/types/FranchiseTypes.js'
+import { IFranchise } from '../ts/interfaces/FranchiseInterfaces'
+import { FranchiseCategories } from '../ts/types/FranchiseTypes'
 
 export default class Franchise {
     private name: string

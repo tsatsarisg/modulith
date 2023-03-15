@@ -1,5 +1,5 @@
-import franchiseRouter from './routes/franchiseRoute.js'
-import Service from './service.js'
+import franchiseRouter from './routes/franchiseRoute'
+import Service from './service'
 
 export default {
     v1: (microservice: Service) => ({

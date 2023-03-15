@@ -1,9 +1,9 @@
-import { EError } from '../ts/types/FranchiseTypes.js'
+import { EError } from '../ts/types/FranchiseTypes'
 
 export class OperationalError extends Error {
-    type: EError
-    message: string
-    statusCode: number
+    readonly type: EError
+    readonly message: string
+    readonly statusCode: number
 
     constructor(message: string, type: EError) {
         super(message)

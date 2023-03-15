@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import FranchiseController from '../controllers/franchiseController.js'
-import Service from '../service.js'
-import errorWrapper from '../utils/errorWrapper.js'
+import FranchiseController from '../controllers/franchiseController'
+import Service from '../service'
+import errorWrapper from '../utils/errorWrapper'
 
 const router = (microservice: Service) => {
     const servicePaths = Router()

@@ -4,9 +4,7 @@ import FranchiseService from '../services/franchiseService.js'
 import {
     FranchiseGetRequest,
     IFranchise,
-} from '../ts/interfaces/FranchiseInterfaces.js'
-import { EError } from '../ts/types/FranchiseTypes.js'
-import { OperationalError } from '../utils/OperationalError.js'
+} from '../ts/interfaces/FranchiseInterfaces'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService

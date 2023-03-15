@@ -1,5 +1,5 @@
 import { Request } from 'express'
-import { FranchiseCategories } from '../types/FranchiseTypes.js'
+import { FranchiseCategories } from '../types/FranchiseTypes'
 
 export interface IFranchise {
     name: string

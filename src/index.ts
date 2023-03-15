@@ -1,4 +1,4 @@
-import Service from './service.js'
+import Service from './service'
 
 const microservice = new Service()
 
