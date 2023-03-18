@@ -14,7 +14,7 @@ const router = (microservice: Service) => {
 
     servicePaths.post(
         '/franchises',
-        franchiseController.create.bind(franchiseController)
+        errorWrapper(franchiseController.create.bind(franchiseController))
     )
 
     servicePaths.delete(

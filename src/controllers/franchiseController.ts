@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import Service from '../service.js'
 import FranchiseService from '../services/franchiseService.js'
 import {
-    FranchiseGetRequest,
-    IFranchise,
+    FranchiseGetRequest
 } from '../ts/interfaces/FranchiseInterfaces'
+import { FranchiseProps } from '../ts/types/FranchiseTypes.js'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService
@@ -29,7 +29,7 @@ export default class FranchiseController {
     }
 
     async create(req: Request, res: Response) {
-        const franchiseProps: IFranchise = { ...req.body }
+        const franchiseProps: FranchiseProps = { ...req.body }
 
         return res
             .status(201)

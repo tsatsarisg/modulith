@@ -1,7 +1,9 @@
 import { MongoServerError, ObjectId } from 'mongodb'
 import Franchise from '../models/franchiseModel'
 import Service from '../service.js'
-import { IFranchise } from '../ts/interfaces/FranchiseInterfaces'
+import { EError, FranchiseProps } from '../ts/types/FranchiseTypes'
+import { OperationalError } from '../utils/OperationalError'
+import plainToClass from '../utils/plainToClass'
 
 export default class FranchiseService {
     constructor(private microservice: Service) {
@@ -16,22 +18,21 @@ export default class FranchiseService {
             ?.find(query)
             .toArray()
 
-        return filteredDocs
+        if (!filteredDocs) throw new OperationalError('No matches found.', EError.BadRequest)
+
+        const typedFilteredDocs = plainToClass(filteredDocs, Franchise)
+        typedFilteredDocs.map((item) => item.toJson())
+
+        return typedFilteredDocs
     }
 
-    async createFranchise(props: IFranchise) {
+    async createFranchise(props: FranchiseProps) {
         const franchise = new Franchise(props)
 
-        try {
-            const createdFranchise =
-                await this.microservice.collection?.insertOne(franchise)
-            return createdFranchise
-        } catch (error) {
-            if (error instanceof MongoServerError) {
-                console.log(`Error worth logging: ${error}`)
-            }
-            throw error
-        }
+        const createdFranchise = await this.microservice.collection?.insertOne(franchise.toJson())
+        
+        return createdFranchise
+        
     }
 
     async deleteFranchise(id: string) {
