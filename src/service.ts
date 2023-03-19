@@ -1,14 +1,12 @@
 import express, { Express } from 'express'
 import cors from 'cors'
-import { MongoClient, Collection } from 'mongodb'
 import routes from './routes'
 import envs from './utils/env'
 import errorHandler from './middlewares/errorHandler'
 
 export default class Service {
-    app: Express
-    private port?: string
-    collection?: Collection | undefined
+    private app: Express
+    private port: string
 
     constructor() {
         this.app = express()
@@ -25,7 +23,6 @@ export default class Service {
     }
 
     async start() {
-        //await this.createConnection()
         this.setRoutes()
         this.app.use(errorHandler)
 
@@ -39,26 +36,8 @@ export default class Service {
     }
 
     private setRoutes() {
-        const v1Routes = routes.v1(this)
+        const v1Routes = routes.v1()
 
         this.app.use('/api/v1', Object.values(v1Routes))
-    }
-
-    private async createConnection() {
-        const client = new MongoClient(envs('DOCKER_MONGO_URL'))
-
-        try {
-            await client.connect()
-            console.log('Connected to MongoDB!')
-
-            const db = client.db(envs('DB_NAME'))
-
-            //this.collection = await db.createCollection(envs('DB_NAME'));
-            this.collection = db.collection(envs('COLLECTION_NAME'))
-        } catch (err) {
-            console.error(err)
-        } finally {
-            // await client.close();
-        }
     }
 }
