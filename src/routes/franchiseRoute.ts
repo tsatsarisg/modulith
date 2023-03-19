@@ -3,9 +3,9 @@ import FranchiseController from '../controllers/franchiseController'
 import Service from '../service'
 import errorWrapper from '../utils/errorWrapper'
 
-const router = (microservice: Service) => {
+const router = () => {
     const servicePaths = Router()
-    const franchiseController = new FranchiseController(microservice)
+    const franchiseController = new FranchiseController()
 
     servicePaths.get(
         '/franchises',

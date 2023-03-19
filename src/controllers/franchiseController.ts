@@ -1,17 +1,14 @@
 import { NextFunction, Request, Response } from 'express'
 import Service from '../service.js'
 import FranchiseService from '../services/franchiseService.js'
-import {
-    FranchiseGetRequest
-} from '../ts/interfaces/FranchiseInterfaces'
+import { FranchiseGetRequest } from '../ts/interfaces/FranchiseInterfaces'
 import { FranchiseProps } from '../ts/types/FranchiseTypes.js'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService
 
-    constructor(private microservice: Service) {
-        this.microservice = microservice
-        this.franchiseService = new FranchiseService(this.microservice)
+    constructor() {
+        this.franchiseService = new FranchiseService()
     }
 
     async get(req: FranchiseGetRequest, res: Response, next: NextFunction) {

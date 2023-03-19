@@ -25,7 +25,7 @@ export default class Service {
     }
 
     async start() {
-        await this.createConnection()
+        //await this.createConnection()
         this.setRoutes()
         this.app.use(errorHandler)
 
@@ -45,7 +45,6 @@ export default class Service {
     }
 
     private async createConnection() {
-        const dbName = 'microserviceDB'
         const client = new MongoClient(envs('DOCKER_MONGO_URL'))
 
         try {
