@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import Service from '../service.js'
+import { Collection } from 'mongodb'
+import MongoDBAdapter from '../adapters/MongoDBAdapter.js'
 import FranchiseService from '../services/franchiseService.js'
 import { FranchiseGetRequest } from '../ts/interfaces/FranchiseInterfaces'
 import { FranchiseProps } from '../ts/types/FranchiseTypes.js'
@@ -7,8 +8,9 @@ import { FranchiseProps } from '../ts/types/FranchiseTypes.js'
 export default class FranchiseController {
     private franchiseService: FranchiseService
 
-    constructor() {
-        this.franchiseService = new FranchiseService()
+    constructor(getCollection: Collection) {
+        const mongoAdapter = new MongoDBAdapter(getCollection)
+        this.franchiseService = new FranchiseService(mongoAdapter)
     }
 
     async get(req: FranchiseGetRequest, res: Response, next: NextFunction) {
