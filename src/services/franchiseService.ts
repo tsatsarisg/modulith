@@ -1,10 +1,5 @@
-import MongoDBAdapter from '../adapters/MongoDBAdapter'
 import FranchiseDAO from '../daos/franchiseDAO'
-import Franchise from '../models/franchiseModel'
-import { EError, FranchiseProps } from '../ts/types/FranchiseTypes'
-import envs from '../utils/env'
-import { OperationalError } from '../utils/OperationalError'
-import plainToClass from '../utils/plainToClass'
+import { FranchiseProps } from '../ts/types/FranchiseTypes'
 
 export default class FranchiseService {
     private dao: FranchiseDAO
