@@ -15,9 +15,9 @@ export default class FranchiseService {
     }
 
     async getFranchises(query: Record<string, unknown>) {
-        const filteredDocs = await this.dao.getFranchises(query)
+        const franchises = await this.dao.getFranchises(query)
 
-        return filteredDocs
+        return franchises
     }
 
     async createFranchise(props: FranchiseProps) {
@@ -27,9 +27,9 @@ export default class FranchiseService {
     }
 
     async updateFranchise(id: string, query: Record<string, unknown>) {
-        const createdFranchise = await this.dao.updateFranchise(id, query)
+        const updatedFranchise = await this.dao.updateFranchise(id, query)
 
-        return createdFranchise
+        return updatedFranchise
     }
 
     async deleteFranchise(id: string) {

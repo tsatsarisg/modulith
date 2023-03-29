@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { Collection } from 'mongodb'
 import MongoDBAdapter from '../adapters/MongoDBAdapter.js'
 import FranchiseDAO from '../daos/franchiseDAO.js'
@@ -27,14 +27,7 @@ export default class FranchiseController {
     }
 
     async list(req: FranchiseGetRequest, res: Response) {
-        const { id } = req.query
-        let filters = {}
-
-        if (id)
-            filters = {
-                id: String(id),
-            }
-
+        let filters = req.body
         const franchises = await this.franchiseService.getFranchises(filters)
 
         return res.status(200).json(franchises)
