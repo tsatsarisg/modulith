@@ -9,13 +9,23 @@ const router = (getCollection: Collection) => {
     const franchiseController = new FranchiseController(getCollection)
 
     servicePaths.get(
-        '/franchises',
+        '/franchise',
         errorWrapper(franchiseController.get.bind(franchiseController))
+    )
+
+    servicePaths.get(
+        '/franchises',
+        errorWrapper(franchiseController.list.bind(franchiseController))
     )
 
     servicePaths.post(
         '/franchises',
         errorWrapper(franchiseController.create.bind(franchiseController))
+    )
+
+    servicePaths.put(
+        '/franchises',
+        errorWrapper(franchiseController.update.bind(franchiseController))
     )
 
     servicePaths.delete(

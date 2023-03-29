@@ -8,12 +8,12 @@ import { FranchiseCategories } from '../ts/types/FranchiseTypes'
 import { OperationalError } from '../utils/OperationalError'
 
 export default class Franchise {
-    private _id?: ObjectId
+    private id?: ObjectId
     private name: string
     private category: FranchiseCategories
 
     constructor(props: FranchiseProps) {
-        this._id = props._id
+        this.id = props._id
         this.name = props.name
         this.category = this.validateCategory(props.category)
     }

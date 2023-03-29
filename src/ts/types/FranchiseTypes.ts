@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb"
+import { ObjectId } from 'mongodb'
 
 export enum EError {
     BadRequest = 400,
@@ -12,6 +12,12 @@ export type FranchiseCategories = 'Carwash' | 'Bakery'
 
 export type FranchiseProps = {
     _id?: ObjectId
+    name: string
+    category: FranchiseCategories
+}
+
+export type FranchiseDocument = {
+    _id: ObjectId
     name: string
     category: FranchiseCategories
 }

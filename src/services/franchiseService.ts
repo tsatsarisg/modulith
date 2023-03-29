@@ -1,4 +1,5 @@
 import MongoDBAdapter from '../adapters/MongoDBAdapter'
+import FranchiseDAO from '../daos/franchiseDAO'
 import Franchise from '../models/franchiseModel'
 import { EError, FranchiseProps } from '../ts/types/FranchiseTypes'
 import envs from '../utils/env'
@@ -6,37 +7,37 @@ import { OperationalError } from '../utils/OperationalError'
 import plainToClass from '../utils/plainToClass'
 
 export default class FranchiseService {
-    private adapter: MongoDBAdapter
+    private dao: FranchiseDAO
 
-    constructor(mongoAdapter: MongoDBAdapter) {
-        this.adapter = mongoAdapter
+    constructor(franchiseDAO: FranchiseDAO) {
+        this.dao = franchiseDAO
     }
 
-    async getFranchises(filters: { id?: string }) {
-        const query: Record<string, unknown> = {}
+    async getFranchise(id: string) {
+        const franchise = await this.dao.getFranchise(id)
 
-        const filteredDocs = await this.adapter.find(query)
+        return franchise
+    }
 
-        if (!filteredDocs)
-            throw new OperationalError('No matches found.', EError.BadRequest)
+    async getFranchises(query: Record<string, unknown>) {
+        const filteredDocs = await this.dao.getFranchises(query)
 
-        const typedFilteredDocs = plainToClass(filteredDocs, Franchise)
-        typedFilteredDocs.map((item) => item.toJson())
-
-        return typedFilteredDocs
+        return filteredDocs
     }
 
     async createFranchise(props: FranchiseProps) {
-        const franchise = new Franchise(props)
+        const createdFranchise = await this.dao.createFranchise(props)
 
-        const createdFranchise = await this.adapter.insertOne(
-            franchise.toJson()
-        )
+        return createdFranchise
+    }
+
+    async updateFranchise(id: string, query: Record<string, unknown>) {
+        const createdFranchise = await this.dao.updateFranchise(id, query)
 
         return createdFranchise
     }
 
     async deleteFranchise(id: string) {
-        await this.adapter.deleteOne(id)
+        await this.dao.deleteFranchise(id)
     }
 }
