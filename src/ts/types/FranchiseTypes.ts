@@ -17,7 +17,7 @@ export type FranchiseProps = {
 }
 
 export type FranchiseDocument = {
-    _id: ObjectId
+    _id?: ObjectId
     name: string
     category: FranchiseCategories
 }

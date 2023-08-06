@@ -1,12 +1,10 @@
 import { Router } from 'express'
-import { Collection } from 'mongodb'
 import FranchiseController from '../controllers/franchiseController'
-import Service from '../service'
 import errorWrapper from '../utils/errorWrapper'
 
-const router = (getCollection: Collection) => {
+const router = () => {
     const servicePaths = Router()
-    const franchiseController = new FranchiseController(getCollection)
+    const franchiseController = new FranchiseController()
 
     servicePaths.get(
         '/franchise',

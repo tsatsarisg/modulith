@@ -1,5 +1,5 @@
-import MongoDBAdapter from '../adapters/MongoDBAdapter'
-import Franchise from '../models/franchiseModel'
+import { Collection, ObjectId } from 'mongodb'
+import Franchise from '../models/franchise.model'
 import {
     EError,
     FranchiseDocument,
@@ -8,16 +8,15 @@ import {
 import { OperationalError } from '../utils/OperationalError'
 import plainToClass from '../utils/plainToClass'
 
-export default class FranchiseDAO {
-    private adapter: MongoDBAdapter
+export default class FranchiseRepository {
+    private collection: Collection<FranchiseDocument>
 
-    constructor(mongoAdapter: MongoDBAdapter) {
-        this.adapter = mongoAdapter
+    constructor(collection: Collection<FranchiseDocument>) {
+        this.collection = collection
     }
 
     async getFranchise(id: string) {
-        const franchiseDocument: FranchiseDocument =
-            await this.adapter.findById(id)
+        const franchiseDocument = await this.collection.findOne({ id })
 
         if (!franchiseDocument)
             throw new OperationalError('No matches found.', EError.BadRequest)
@@ -28,7 +27,8 @@ export default class FranchiseDAO {
     }
 
     async getFranchises(query: Record<string, unknown>) {
-        const filteredDocs = await this.adapter.find(query)
+        const cursor = this.collection.find(query)
+        const filteredDocs = await cursor.toArray()
 
         if (!filteredDocs)
             throw new OperationalError('No matches found.', EError.BadRequest)
@@ -41,7 +41,7 @@ export default class FranchiseDAO {
     async createFranchise(props: FranchiseProps) {
         const franchise = new Franchise(props)
 
-        const createdFranchise = await this.adapter.insertOne(
+        const createdFranchise = await this.collection.insertOne(
             franchise.toJson()
         )
 
@@ -49,12 +49,15 @@ export default class FranchiseDAO {
     }
 
     async updateFranchise(id: string, query: Record<string, unknown>) {
-        const createdFranchise = await this.adapter.updateOne(id, query)
+        const createdFranchise = await this.collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: query }
+        )
 
         return createdFranchise
     }
 
     async deleteFranchise(id: string) {
-        await this.adapter.deleteOne(id)
+        await this.collection.deleteOne({ id })
     }
 }

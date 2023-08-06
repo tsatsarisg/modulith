@@ -3,13 +3,14 @@ import cors from 'cors'
 import routes from './routes'
 import envs from './utils/env'
 import errorHandler from './middlewares/errorHandler'
-import { MongoDomain } from './adapters/MongoDBAdapter'
+import { MongoDomain } from './utils/MongoDBAdapter'
 import { Collection } from 'mongodb'
+import { FranchiseDocument } from './ts/types/FranchiseTypes'
 
 export default class Service {
     private app: Express
     private port: string
-    private collection!: Collection
+    private collection!: Collection<FranchiseDocument>
 
     constructor() {
         this.app = express()
@@ -40,7 +41,7 @@ export default class Service {
     }
 
     private setRoutes() {
-        const v1Routes = routes.v1(this.getCollection)
+        const v1Routes = routes.v1()
 
         this.app.use('/api/v1', Object.values(v1Routes))
     }

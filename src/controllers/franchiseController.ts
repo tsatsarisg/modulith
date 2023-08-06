@@ -1,19 +1,17 @@
 import { Request, Response } from 'express'
-import { Collection } from 'mongodb'
-import MongoDBAdapter from '../adapters/MongoDBAdapter.js'
-import FranchiseDAO from '../daos/franchiseDAO.js'
+import FranchiseRepository from '../repositories/franchise.repository.js'
 import FranchiseService from '../services/franchiseService.js'
 import { FranchiseGetRequest } from '../ts/interfaces/FranchiseInterfaces'
 import { EError, FranchiseProps } from '../ts/types/FranchiseTypes.js'
 import { OperationalError } from '../utils/OperationalError.js'
+import { franchiseCollection } from '../index.js'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService
 
-    constructor(getCollection: Collection) {
-        const mongoAdapter = new MongoDBAdapter(getCollection)
-        const franchiseDAO = new FranchiseDAO(mongoAdapter)
-        this.franchiseService = new FranchiseService(franchiseDAO)
+    constructor() {
+        const franchiseRepository = new FranchiseRepository(franchiseCollection)
+        this.franchiseService = new FranchiseService(franchiseRepository)
     }
 
     async get(req: FranchiseGetRequest, res: Response) {
