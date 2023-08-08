@@ -10,7 +10,9 @@ export default class FranchiseController {
     private franchiseService: FranchiseService
 
     constructor() {
-        const franchiseRepository = new FranchiseRepository(franchiseCollection)
+        const franchiseRepository = new FranchiseRepository(
+            franchiseCollection()
+        )
         this.franchiseService = new FranchiseService(franchiseRepository)
     }
 

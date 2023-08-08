@@ -1,4 +1,5 @@
 import { MongoClient, Db, Collection } from 'mongodb'
+import { FranchiseDocument } from '../ts/types/FranchiseTypes'
 
 export class MongoDomain {
     private db!: Db
@@ -21,7 +22,7 @@ export class MongoDomain {
         await this.client.close()
     }
 
-    collection(name: string): Collection<any> {
+    collection(name: string): Collection<FranchiseDocument> {
         return this.db.collection(name)
     }
 }

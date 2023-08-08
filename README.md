@@ -9,3 +9,8 @@ The DDD architecture focuses on creating software that is centered around the co
 The onion architecture, on the other hand, is a software design pattern that organizes the codebase in concentric layers, where each layer is responsible for a specific aspect of the application. The innermost layer contains the business logic, and each outer layer adds more technical details and infrastructure concerns.
 
 Together, these two architectural patterns form a powerful combination that allows for the creation of robust and scalable microservices.
+
+### Steps
+
+1. docker compose up
+2. npm run dev

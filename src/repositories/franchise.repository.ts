@@ -16,7 +16,9 @@ export default class FranchiseRepository {
     }
 
     async getFranchise(id: string) {
-        const franchiseDocument = await this.collection.findOne({ id })
+        const franchiseDocument = await this.collection.findOne({
+            _id: new ObjectId(id),
+        })
 
         if (!franchiseDocument)
             throw new OperationalError('No matches found.', EError.BadRequest)
@@ -58,6 +60,6 @@ export default class FranchiseRepository {
     }
 
     async deleteFranchise(id: string) {
-        await this.collection.deleteOne({ id })
+        await this.collection.deleteOne({ _id: new ObjectId(id) })
     }
 }

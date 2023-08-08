@@ -5,4 +5,6 @@ const microservice = new Service()
 microservice.init()
 microservice.start()
 
-export const franchiseCollection = microservice.getCollection
+export function franchiseCollection() {
+    return microservice.getCollection
+}
