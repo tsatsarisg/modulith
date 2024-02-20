@@ -1,7 +1,10 @@
 import { Collection, ObjectId } from 'mongodb'
-import Franchise from '../models/franchise.model'
-import { FranchiseDocument, FranchiseProps } from '../ts/types/FranchiseTypes'
-import plainToClass from '../utils/plainToClass'
+import Franchise from './franchise.model'
+import {
+    FranchiseDocument,
+    FranchiseProps,
+} from '../../ts/types/FranchiseTypes'
+import plainToClass from '../../utils/plainToClass'
 
 export default class FranchiseRepository {
     private collection: Collection<FranchiseDocument>
@@ -38,15 +41,6 @@ export default class FranchiseRepository {
 
         const createdFranchise = await this.collection.insertOne(
             franchise.toJson()
-        )
-
-        return createdFranchise
-    }
-
-    async updateFranchise(id: string, query: Record<string, unknown>) {
-        const createdFranchise = await this.collection.updateOne(
-            { _id: new ObjectId(id) },
-            { $set: query }
         )
 
         return createdFranchise

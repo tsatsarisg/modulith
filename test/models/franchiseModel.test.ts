@@ -1,5 +1,5 @@
-import Franchise from '../../src/models/franchise.model'
-import { FranchiseProps } from '../../src/ts/types/FranchiseTypes'
+import { FranchiseProps } from '../../src/packages/franchise/franchise.interface'
+import Franchise from '../../src/packages/franchise/franchise.model'
 
 describe('franchiseModels [models]', () => {
     it("should throw error if category isn't supported", () => {

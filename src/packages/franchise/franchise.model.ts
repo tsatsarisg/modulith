@@ -1,5 +1,8 @@
-import { franchiseCategories, FranchiseProps } from '../ts/types/FranchiseTypes'
-import { FranchiseCategories } from '../ts/types/FranchiseTypes'
+import {
+    franchiseCategories,
+    FranchiseProps,
+} from '../../ts/types/FranchiseTypes'
+import { FranchiseCategories } from '../../ts/types/FranchiseTypes'
 
 export default class Franchise {
     private name: string

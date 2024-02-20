@@ -2,15 +2,14 @@ import express, { Express } from 'express'
 import cors from 'cors'
 import routes from './routes'
 import envs from './utils/env'
-import errorHandler from './middlewares/errorHandler'
+import errorHandler from './utils/middlewares/errorHandler'
 import { MongoDomain } from './utils/MongoDBAdapter'
 import { Collection } from 'mongodb'
-import { FranchiseDocument } from './ts/types/FranchiseTypes'
 
 export default class Service {
     private app: Express
     private port: string
-    private collection!: Collection<FranchiseDocument>
+    private collection!: Collection<any>
 
     constructor() {
         this.app = express()

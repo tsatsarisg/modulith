@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import errorHandler from '../../src/middlewares/errorHandler'
+import errorHandler from '../../src/utils/middlewares/errorHandler'
 
 describe('errorHandler [middleware]', () => {
     it('should send an error response to the client', () => {
