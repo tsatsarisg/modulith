@@ -1,21 +1,11 @@
-import plainToClass from '../../src/utils/plainToClass'
 import Franchise from '../../src/models/franchise.model'
-import { ObjectId } from 'mongodb'
-import { EError, FranchiseProps } from '../../src/ts/types/FranchiseTypes'
-import { OperationalError } from '../../src/utils/OperationalError'
+import { FranchiseProps } from '../../src/ts/types/FranchiseTypes'
 
 describe('franchiseModels [models]', () => {
     it("should throw error if category isn't supported", () => {
         const sampleJSONArray = { name: 'test', category: 'Bakedsry' }
 
-        try {
-            const testFranchise = new Franchise(
-                sampleJSONArray as FranchiseProps
-            )
-        } catch (e) {
-            const { statusCode } = e as OperationalError
-            expect(statusCode).toBe(400)
-        }
+        expect(new Franchise(sampleJSONArray as FranchiseProps)).toThrow()
     })
 
     it('should return a franchise object', () => {

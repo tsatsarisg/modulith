@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
-import FranchiseRepository from '../repositories/franchise.repository.js'
-import FranchiseService from '../services/franchiseService.js'
+import FranchiseRepository from '../repositories/franchise.repository'
+import FranchiseService from '../services/franchiseService'
 import { FranchiseGetRequest } from '../ts/interfaces/FranchiseInterfaces'
-import { EError, FranchiseProps } from '../ts/types/FranchiseTypes.js'
-import { OperationalError } from '../utils/OperationalError.js'
-import { franchiseCollection } from '../index.js'
+import { FranchiseProps } from '../ts/types/FranchiseTypes'
+import { franchiseCollection } from '..'
 
 export default class FranchiseController {
     private franchiseService: FranchiseService
@@ -18,8 +17,7 @@ export default class FranchiseController {
 
     async get(req: FranchiseGetRequest, res: Response) {
         const { id } = req.query
-        if (!id)
-            throw new OperationalError('No matches found.', EError.BadRequest)
+        if (!id) throw new Error('No matches found.')
 
         const franchise = await this.franchiseService.getFranchise(id as string)
 
@@ -27,8 +25,7 @@ export default class FranchiseController {
     }
 
     async list(req: FranchiseGetRequest, res: Response) {
-        let filters = req.body
-        const franchises = await this.franchiseService.getFranchises(filters)
+        const franchises = await this.franchiseService.getFranchises(req.body)
 
         return res.status(200).json(franchises)
     }
@@ -43,14 +40,11 @@ export default class FranchiseController {
 
     async update(req: FranchiseGetRequest, res: Response) {
         const { id } = req.query
-        if (!id)
-            throw new OperationalError('No matches found.', EError.BadRequest)
-
-        let filters = req.body
+        if (!id) throw new Error('No matches found.')
 
         const franchise = await this.franchiseService.updateFranchise(
             id as string,
-            filters
+            req.body
         )
 
         return res.status(200).json(franchise)
@@ -58,6 +52,7 @@ export default class FranchiseController {
 
     async delete(req: Request, res: Response) {
         const id = req.params.id
+        if (!id) return res.status(404)
 
         return res.json(await this.franchiseService.deleteFranchise(id))
     }

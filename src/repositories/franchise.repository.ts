@@ -1,11 +1,6 @@
 import { Collection, ObjectId } from 'mongodb'
 import Franchise from '../models/franchise.model'
-import {
-    EError,
-    FranchiseDocument,
-    FranchiseProps,
-} from '../ts/types/FranchiseTypes'
-import { OperationalError } from '../utils/OperationalError'
+import { FranchiseDocument, FranchiseProps } from '../ts/types/FranchiseTypes'
 import plainToClass from '../utils/plainToClass'
 
 export default class FranchiseRepository {
@@ -20,8 +15,7 @@ export default class FranchiseRepository {
             _id: new ObjectId(id),
         })
 
-        if (!franchiseDocument)
-            throw new OperationalError('No matches found.', EError.BadRequest)
+        if (!franchiseDocument) throw new Error('No matches found.')
 
         const franchise = new Franchise(franchiseDocument)
 
@@ -32,8 +26,7 @@ export default class FranchiseRepository {
         const cursor = this.collection.find(query)
         const filteredDocs = await cursor.toArray()
 
-        if (!filteredDocs)
-            throw new OperationalError('No matches found.', EError.BadRequest)
+        if (!filteredDocs) throw new Error('No matches found.')
 
         const typedFilteredDocs = plainToClass(filteredDocs, Franchise)
 
