@@ -6,12 +6,11 @@ const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    if (err instanceof Error) {
+    if (err) {
         const message = err.message
-
         return res.status(500).json({ message })
     }
-    if (err) return res.status(500)
+
     next()
 }
 

@@ -1,7 +1,6 @@
 import FranchiseRepository from './franchise.repository'
-import { FranchiseProps } from '../../ts/types/FranchiseTypes'
-import { IFranchiseService } from './franchise.interface'
-import Franchise from './franchise.model'
+import { FranchiseProps, IFranchiseService } from './franchise.interface'
+import FranchiseModel from './franchise.model'
 
 export default class FranchiseService implements IFranchiseService {
     private repository: FranchiseRepository
@@ -11,19 +10,19 @@ export default class FranchiseService implements IFranchiseService {
     }
 
     async getFranchise(id: string) {
-        return await this.repository.getFranchise(id)
+        return (await this.repository.getFranchise(id)).getFranchise
     }
 
     async getFranchises(query: Record<string, unknown>) {
         const franchises = await this.repository.getFranchises(query)
 
-        return franchises
+        return franchises.map((franchise) => franchise.getFranchise)
     }
 
     async createFranchise(props: FranchiseProps) {
-        const franchise = new Franchise({ ...props })
+        const franchise = new FranchiseModel({ ...props })
         await this.repository.createFranchise(props)
-        return franchise
+        return franchise.getFranchise
     }
 
     async deleteFranchise(id: string) {

@@ -3,11 +3,11 @@ import FranchiseController from './franchise.controller'
 import errorWrapper from '../../utils/errorWrapper'
 import FranchiseService from '../../packages/franchise/franchise.service'
 import FranchiseRepository from '../../packages/franchise/franchise.repository'
-import { franchiseCollection } from '../..'
+import { franchiseCollection } from '../../index'
 
 const router = () => {
     const servicePaths = Router()
-    const franchiseRepository = new FranchiseRepository(franchiseCollection())
+    const franchiseRepository = new FranchiseRepository(franchiseCollection)
     const franchiseService = new FranchiseService(franchiseRepository)
     const franchiseController = new FranchiseController(franchiseService)
 

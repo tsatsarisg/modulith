@@ -1,9 +1,5 @@
-import { config } from 'dotenv'
+import dotenv from 'dotenv'
 
-config()
+dotenv.config()
 
-const envs = (envVariable: string) => {
-    return process.env[envVariable] || ''
-}
-
-export default envs
+export default process.env

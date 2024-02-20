@@ -1,15 +1,19 @@
 import { Collection, ObjectId } from 'mongodb'
-import Franchise from './franchise.model'
-import {
-    FranchiseDocument,
-    FranchiseProps,
-} from '../../ts/types/FranchiseTypes'
+import FranchiseModel from './franchise.model'
+
 import plainToClass from '../../utils/plainToClass'
+import { FranchiseCategory, FranchiseProps } from './franchise.interface'
+
+export type FranchiseDocument = {
+    _id?: ObjectId
+    name: string
+    category: string
+}
 
 export default class FranchiseRepository {
-    private collection: Collection<FranchiseDocument>
+    private collection: Collection
 
-    constructor(collection: Collection<FranchiseDocument>) {
+    constructor(collection: Collection) {
         this.collection = collection
     }
 
@@ -20,7 +24,10 @@ export default class FranchiseRepository {
 
         if (!franchiseDocument) throw new Error('No matches found.')
 
-        const franchise = new Franchise(franchiseDocument)
+        const franchise = new FranchiseModel({
+            name: franchiseDocument.name,
+            category: franchiseDocument.category as FranchiseCategory,
+        })
 
         return franchise
     }
@@ -31,16 +38,16 @@ export default class FranchiseRepository {
 
         if (!filteredDocs) throw new Error('No matches found.')
 
-        const typedFilteredDocs = plainToClass(filteredDocs, Franchise)
+        const typedFilteredDocs = plainToClass(filteredDocs, FranchiseModel)
 
         return typedFilteredDocs
     }
 
     async createFranchise(props: FranchiseProps) {
-        const franchise = new Franchise(props)
+        const franchise = new FranchiseModel(props)
 
         const createdFranchise = await this.collection.insertOne(
-            franchise.toJson()
+            franchise.getFranchise
         )
 
         return createdFranchise

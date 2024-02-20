@@ -1,28 +1,23 @@
-import { MongoClient, Db, Collection } from 'mongodb'
-import { FranchiseDocument } from '../ts/types/FranchiseTypes'
+import { MongoClient, Db } from 'mongodb'
 
-export class MongoDomain {
+export class MongoAdapter {
     private db!: Db
     private client!: MongoClient
-    private url: string
 
     constructor(url: string) {
-        this.url = url
-        this.client = new MongoClient(this.url)
+        this.client = new MongoClient(url)
     }
 
-    async connect(dbName: string): Promise<void> {
+    async connect(): Promise<void> {
         await this.client.connect()
         console.log('Connected to MongoDB!')
-
-        this.db = this.client.db(dbName)
     }
 
-    async disconnect(): Promise<void> {
+    async close(): Promise<void> {
         await this.client.close()
     }
 
-    collection(name: string): Collection<FranchiseDocument> {
+    collection(name: string) {
         return this.db.collection(name)
     }
 }

@@ -1,10 +1,11 @@
-import Service from './service'
+import Application from './service'
 
-const microservice = new Service()
+const microservice = new Application()
 
 microservice.init()
 microservice.start()
 
-export function franchiseCollection() {
-    return microservice.getCollection
-}
+const FRANCHISE_COLLECTION_NAME = process.env.COLLECTION_NAME || ''
+export const franchiseCollection = microservice.mongoAdapter.collection(
+    FRANCHISE_COLLECTION_NAME
+)

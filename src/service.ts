@@ -1,19 +1,20 @@
 import express, { Express } from 'express'
 import cors from 'cors'
 import routes from './routes'
-import envs from './utils/env'
 import errorHandler from './utils/middlewares/errorHandler'
-import { MongoDomain } from './utils/MongoDBAdapter'
-import { Collection } from 'mongodb'
+import { MongoAdapter } from './utils/MongoDBAdapter'
 
-export default class Service {
+const MONGO_URL = process.env.DOCKER_MONGO_URL || ''
+const PORT_NUMBER = process.env.PORT_NUMBER || ''
+
+export default class Application {
+    public mongoAdapter!: MongoAdapter
     private app: Express
     private port: string
-    private collection!: Collection<any>
 
     constructor() {
         this.app = express()
-        this.port = envs('PORT_NUMBER')
+        this.port = PORT_NUMBER
     }
 
     init() {
@@ -40,23 +41,15 @@ export default class Service {
     }
 
     private setRoutes() {
-        const v1Routes = routes.v1()
+        const v1Routes = routes.v1
 
         this.app.use('/api/v1', Object.values(v1Routes))
     }
 
     private async createConnection() {
-        const mongoDomain = new MongoDomain(envs('DOCKER_MONGO_URL'))
+        const mongoAdapter = new MongoAdapter(MONGO_URL)
 
-        try {
-            await mongoDomain.connect(envs('DB_NAME'))
-            this.collection = mongoDomain.collection(envs('COLLECTION_NAME'))
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    get getCollection() {
-        return this.collection
+        await mongoAdapter.connect()
+        this.mongoAdapter = mongoAdapter
     }
 }
