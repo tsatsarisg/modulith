@@ -1,5 +1,4 @@
 export type FranchiseProps = {
-    id?: string
     name: string
     category: FranchiseCategory
 }
@@ -13,7 +12,7 @@ export interface Franchise {
 
 export interface IFranchiseService {
     getFranchise(id: string): Promise<Franchise>
-    getFranchises(query: Record<string, unknown>): Promise<Franchise[]>
+    getFranchises(): Promise<Franchise[]>
     createFranchise(props: FranchiseProps): Promise<Franchise>
     deleteFranchise(id: string): Promise<void>
 }

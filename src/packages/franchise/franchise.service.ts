@@ -13,8 +13,8 @@ export default class FranchiseService implements IFranchiseService {
         return (await this.repository.getFranchise(id)).getFranchise
     }
 
-    async getFranchises(query: Record<string, unknown>) {
-        const franchises = await this.repository.getFranchises(query)
+    async getFranchises() {
+        const franchises = await this.repository.getFranchises()
 
         return franchises.map((franchise) => franchise.getFranchise)
     }

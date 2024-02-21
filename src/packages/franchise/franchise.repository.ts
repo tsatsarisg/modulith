@@ -32,8 +32,8 @@ export default class FranchiseRepository {
         return franchise
     }
 
-    async getFranchises(query: Record<string, unknown>) {
-        const cursor = this.collection.find(query)
+    async getFranchises() {
+        const cursor = this.collection.find()
         const filteredDocs = await cursor.toArray()
 
         if (!filteredDocs) throw new Error('No matches found.')
