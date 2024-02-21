@@ -11,25 +11,13 @@ const router = () => {
     const franchiseService = new FranchiseService(franchiseRepository)
     const franchiseController = new FranchiseController(franchiseService)
 
-    servicePaths.get(
-        '/franchise',
-        errorWrapper(franchiseController.get.bind(franchiseController))
-    )
+    servicePaths.get('/franchise', errorWrapper(franchiseController.get))
 
-    servicePaths.get(
-        '/franchises',
-        errorWrapper(franchiseController.list.bind(franchiseController))
-    )
+    servicePaths.get('/franchises', errorWrapper(franchiseController.list))
 
-    servicePaths.post(
-        '/franchises',
-        errorWrapper(franchiseController.create.bind(franchiseController))
-    )
+    servicePaths.post('/franchises', errorWrapper(franchiseController.create))
 
-    servicePaths.delete(
-        '/franchises/:id',
-        franchiseController.delete.bind(franchiseController)
-    )
+    servicePaths.delete('/franchises/:id', franchiseController.delete)
 
     return servicePaths
 }

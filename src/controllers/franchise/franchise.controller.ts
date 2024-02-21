@@ -9,7 +9,7 @@ export default class FranchiseController {
         this.franchiseService = franchiseService
     }
 
-    async get(req: Request, res: Response) {
+    get = async (req: Request, res: Response) => {
         const { id } = req.query
         if (!id) throw new Error('No matches found.')
 
@@ -18,13 +18,13 @@ export default class FranchiseController {
         return res.status(200).json(franchise)
     }
 
-    async list(req: Request, res: Response) {
+    list = async (req: Request, res: Response) => {
         const franchises = await this.franchiseService.getFranchises(req.body)
 
         return res.status(200).json(franchises)
     }
 
-    async create(req: Request, res: Response) {
+    create = async (req: Request, res: Response) => {
         const franchiseProps: FranchiseProps = { ...req.body }
 
         return res
@@ -32,7 +32,7 @@ export default class FranchiseController {
             .json(await this.franchiseService.createFranchise(franchiseProps))
     }
 
-    async delete(req: Request, res: Response) {
+    delete = async (req: Request, res: Response) => {
         const id = req.params.id
         if (!id) return res.status(404)
 

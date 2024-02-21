@@ -31,13 +31,11 @@ export default class Application {
         this.setRoutes()
         this.app.use(errorHandler)
 
-        const server = this.app.listen(this.port, () => {
+        this.app.listen(this.port, () => {
             console.log(
                 `⚡️ Server is running at http://localhost:${this.port}`
             )
         })
-
-        return server
     }
 
     private setRoutes() {
