@@ -1,4 +1,4 @@
-# microservice
+# modulith
 
 NodeJS Modular Monolith with ExpressJS and Typescript
 
