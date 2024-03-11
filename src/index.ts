@@ -1,4 +1,4 @@
-import Application from './service'
+import Application from './App'
 
 const microservice = new Application()
 

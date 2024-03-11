@@ -1,3 +1,7 @@
+import { franchiseCollection } from '../..'
+import FranchiseRepository from './franchise.repository'
+import FranchiseService from './franchise.service'
+
 export type FranchiseProps = {
     name: string
     category: FranchiseCategory
@@ -16,3 +20,6 @@ export interface IFranchiseService {
     createFranchise(props: FranchiseProps): Promise<Franchise>
     deleteFranchise(id: string): Promise<void>
 }
+
+const franchiseRepository = new FranchiseRepository(franchiseCollection)
+export const franchiseService = new FranchiseService(franchiseRepository)

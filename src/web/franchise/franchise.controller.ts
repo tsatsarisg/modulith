@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { IFranchiseService } from '../../packages/franchise/franchise.interface'
 import Joi from 'joi'
+import { IFranchiseService } from '../../components/franchise'
 
 const createSchema = Joi.object({
     name: Joi.string().required(),

@@ -1,4 +1,4 @@
-import franchiseRouter from './controllers/franchise/franchise.route'
+import franchiseRouter from './web/franchise/franchise.route'
 
 export default {
     v1: {

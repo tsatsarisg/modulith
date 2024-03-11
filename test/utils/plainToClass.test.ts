@@ -1,5 +1,5 @@
 import plainToClass from '../../src/utils/plainToClass'
-import FranchiseModel from '../../src/packages/franchise/franchise.model'
+import FranchiseModel from '../../src/components/franchise/franchise.model'
 describe('plainToClass [utils]', () => {
     it('should return a typed array', () => {
         const sampleJSONArray = [

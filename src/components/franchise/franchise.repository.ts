@@ -2,7 +2,7 @@ import { Collection, ObjectId } from 'mongodb'
 import FranchiseModel from './franchise.model'
 
 import plainToClass from '../../utils/plainToClass'
-import { FranchiseCategory, FranchiseProps } from './franchise.interface'
+import { FranchiseCategory, FranchiseProps } from '.'
 
 export type FranchiseDocument = {
     _id?: ObjectId

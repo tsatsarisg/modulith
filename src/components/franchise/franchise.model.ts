@@ -1,8 +1,4 @@
-import {
-    Franchise,
-    FranchiseCategory,
-    FranchiseProps,
-} from './franchise.interface'
+import { Franchise, FranchiseCategory, FranchiseProps } from '.'
 
 export default class FranchiseModel {
     private name: string
