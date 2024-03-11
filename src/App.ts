@@ -39,9 +39,7 @@ export default class Application {
     }
 
     private setRoutes() {
-        const v1Routes = routes.v1
-
-        this.app.use('/api/v1', Object.values(v1Routes))
+        this.app.use('/api', Object.values(routes))
     }
 
     private async createConnection() {
