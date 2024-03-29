@@ -2,4 +2,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export default process.env
+export function getEnv(key: string) {
+    // eslint-disable-next-line security/detect-object-injection
+    return process.env[key] || ''
+}

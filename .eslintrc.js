@@ -23,6 +23,11 @@ module.exports = {
         'plugin:promise/recommended',
         'prettier',
     ],
+    settings: {
+        'import/resolver': {
+            typescript: {},
+        },
+    },
     ignorePatterns: ['node_modules', '*.js'],
     rules: {
         'n/file-extension-in-import': 0,
