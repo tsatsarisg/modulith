@@ -1,4 +1,4 @@
-import { getEnv } from '@utils/env'
+import { getEnv } from './utils/env'
 import Application from './App'
 
 const microservice = new Application()

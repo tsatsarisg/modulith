@@ -4,7 +4,7 @@
 //     password: string
 // }
 
-import { userCollection } from 'index'
+import { userCollection } from '../..'
 import User from './user.model'
 import UserRepository from './user.repository'
 import UserService from './user.service'

@@ -1,11 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src/",
-        "paths": {
-            "@components/*": ["components/*"],
-            "@utils/*": ["utils/*"],
-            "@web/*": ["web/*"]
-        },
         "esModuleInterop": true,
         "skipLibCheck": true,
         "target": "ES2022",

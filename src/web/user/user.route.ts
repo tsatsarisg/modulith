@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import UserController from './user.controller'
-import { userService } from '@components/user'
-import errorWrapper from '@utils/errorWrapper'
+import errorWrapper from '../../utils/errorWrapper'
+import { userService } from '../../components/user'
 
 const router = () => {
     const servicePaths = Router()

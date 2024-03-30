@@ -1,6 +1,6 @@
-import { IUserService } from '@components/user'
 import Joi from 'joi'
 import { Request, Response } from 'express'
+import { IUserService } from '../../components/user'
 
 const createSchema = Joi.object({
     email: Joi.string().required(),

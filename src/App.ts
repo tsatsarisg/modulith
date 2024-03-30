@@ -3,9 +3,10 @@ import cors from 'cors'
 import routes from './routes'
 import errorHandler from './utils/middlewares/errorHandler'
 import { MongoAdapter } from './utils/MongoDBAdapter'
+import { getEnv } from './utils/env'
 
-const MONGO_URL = process.env.DOCKER_MONGO_URL || ''
-const PORT_NUMBER = process.env.PORT_NUMBER || ''
+const MONGO_URL = getEnv('DOCKER_MONGO_URL')
+const PORT_NUMBER = getEnv('PORT_NUMBER')
 
 export default class Application {
     public mongoAdapter!: MongoAdapter
