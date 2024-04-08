@@ -1,4 +1,4 @@
-import { franchiseCollection } from '../..'
+import { Collection } from 'mongodb'
 import FranchiseRepository from './franchise.repository'
 import FranchiseService from './franchise.service'
 
@@ -21,5 +21,9 @@ export interface IFranchiseService {
     deleteFranchise(id: string): Promise<void>
 }
 
-const franchiseRepository = new FranchiseRepository(franchiseCollection)
-export const franchiseService = new FranchiseService(franchiseRepository)
+export const buildFranchiseService = (
+    franchiseCollection: Collection
+): IFranchiseService => {
+    const franchiseRepository = new FranchiseRepository(franchiseCollection)
+    return new FranchiseService(franchiseRepository)
+}

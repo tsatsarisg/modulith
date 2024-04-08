@@ -1,11 +1,17 @@
 import { Router } from 'express'
 import FranchiseController from './franchise.controller'
 import errorWrapper from '../../utils/errorWrapper'
-import { franchiseService } from '../../components/franchise'
+import { MongoAdapter } from '../../utils/MongoDBAdapter'
+import { getEnv } from '../../utils/env'
+import { buildFranchiseService } from '../../components/franchise'
 
-const router = () => {
+const router = (mongoAdapter: MongoAdapter) => {
     const servicePaths = Router()
-    const franchiseController = new FranchiseController(franchiseService)
+    const franchiseController = new FranchiseController(
+        buildFranchiseService(
+            mongoAdapter.collection(getEnv('FRANCHISE_COLLECTION_NAME'))
+        )
+    )
 
     servicePaths.get('/franchise', errorWrapper(franchiseController.get))
     servicePaths.get('/franchises', errorWrapper(franchiseController.list))

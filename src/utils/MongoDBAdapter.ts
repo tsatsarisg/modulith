@@ -10,6 +10,7 @@ export class MongoAdapter {
 
     async connect(): Promise<void> {
         await this.client.connect()
+        this.db = this.client.db('franchises')
         console.log('Connected to MongoDB!')
     }
 

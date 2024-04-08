@@ -40,7 +40,7 @@ export default class Application {
     }
 
     private setRoutes() {
-        this.app.use('/api', Object.values(routes))
+        this.app.use('/api', Object.values(routes(this.mongoAdapter)))
     }
 
     private async createConnection() {
