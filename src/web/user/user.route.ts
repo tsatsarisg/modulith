@@ -1,14 +1,11 @@
 import { Router } from 'express'
 import UserController from './user.controller'
 import errorWrapper from '../../utils/errorWrapper'
-import { buildUserService } from '../../components/user'
-import { MongoAdapter } from '../../utils/MongoDBAdapter'
+import { Components } from '../../components'
 
-const router = (mongoAdapter: MongoAdapter) => {
+const router = ({ usersComponent }: Components) => {
     const servicePaths = Router()
-    const userController = new UserController(
-        buildUserService(mongoAdapter.collection('USER_COLLECTION_NAME'))
-    )
+    const userController = new UserController(usersComponent)
 
     servicePaths.get('/users', errorWrapper(userController.get))
     servicePaths.post('/users', errorWrapper(userController.create))

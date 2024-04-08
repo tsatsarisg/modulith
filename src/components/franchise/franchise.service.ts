@@ -1,8 +1,8 @@
 import FranchiseRepository from './franchise.repository'
 import FranchiseModel from './franchise.model'
-import { FranchiseProps, IFranchiseService } from '.'
+import { FranchiseProps, IFranchisesComponent } from '.'
 
-export default class FranchiseService implements IFranchiseService {
+export default class FranchiseService implements IFranchisesComponent {
     private repository: FranchiseRepository
 
     constructor(franchiseRepository: FranchiseRepository) {

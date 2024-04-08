@@ -1,8 +1,8 @@
-import { IUserService } from '.'
+import { IUsersComponent } from '.'
 import User from './user.model'
 import UserRepository from './user.repository'
 
-export default class UserService implements IUserService {
+export default class UserService implements IUsersComponent {
     private repository: UserRepository
 
     constructor(repository: UserRepository) {

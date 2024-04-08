@@ -14,16 +14,20 @@ export interface Franchise {
     category: FranchiseCategory
 }
 
-export interface IFranchiseService {
+export interface IFranchisesComponent {
     getFranchise(id: string): Promise<Franchise>
     getFranchises(): Promise<Franchise[]>
     createFranchise(props: FranchiseProps): Promise<Franchise>
     deleteFranchise(id: string): Promise<void>
 }
 
-export const buildFranchiseService = (
+export interface FranchiseComponentDependencies {
     franchiseCollection: Collection
-): IFranchiseService => {
+}
+
+export const buildFranchisesComponent = ({
+    franchiseCollection,
+}: FranchiseComponentDependencies): IFranchisesComponent => {
     const franchiseRepository = new FranchiseRepository(franchiseCollection)
     return new FranchiseService(franchiseRepository)
 }
