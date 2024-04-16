@@ -1,52 +1,65 @@
-import express, { Express } from 'express'
+/* eslint-disable n/no-process-exit */
+import express, { Express, json } from 'express'
 import cors from 'cors'
 import routes from './routes'
 import errorHandler from './utils/middlewares/errorHandler'
 import { MongoAdapter } from './utils/MongoDBAdapter'
 import { getEnv } from './utils/env'
-
-const MONGO_URL = getEnv('DOCKER_MONGO_URL')
-const PORT_NUMBER = getEnv('PORT_NUMBER')
+import helmet from 'helmet'
+import { Server } from 'http'
 
 export default class Application {
-    public mongoAdapter!: MongoAdapter
+    public mongoAdapter: MongoAdapter
     private app: Express
     private port: string
+    private server!: Server
 
     constructor() {
         this.app = express()
-        this.port = PORT_NUMBER
+        this.port = getEnv('PORT_NUMBER')
+        this.mongoAdapter = new MongoAdapter(getEnv('DOCKER_MONGO_URL'))
     }
 
-    init() {
-        this.app.use(express.json())
+    build() {
+        this.app.use(json())
+        this.app.use(helmet())
         this.app.use(
             cors({
                 origin: `http://localhost:${this.port}`,
             })
         )
+        this.app.use(errorHandler)
     }
 
     async start() {
-        await this.createConnection()
+        await this.mongoAdapter.connect()
         this.setRoutes()
-        this.app.use(errorHandler)
+        this.server = this.app
+            .listen(this.port)
+            .on('listening', () => {
+                console.log(
+                    `⚡️ Server is running at http://localhost:${this.port}`
+                )
+            })
+            .on('error', (err) => {
+                console.error('Error starting server')
+                console.error(err)
+                process.exit(1)
+            })
+    }
 
-        this.app.listen(this.port, () => {
-            console.log(
-                `⚡️ Server is running at http://localhost:${this.port}`
-            )
+    async stop() {
+        await this.mongoAdapter.close()
+        this.server.close((err) => {
+            if (err) {
+                console.error(err)
+                process.exit(1)
+            }
+            console.log('Server stopped')
         })
     }
 
     private setRoutes() {
         this.app.use('/api', Object.values(routes(this.mongoAdapter)))
-    }
-
-    private async createConnection() {
-        const mongoAdapter = new MongoAdapter(MONGO_URL)
-
-        await mongoAdapter.connect()
-        this.mongoAdapter = mongoAdapter
     }
 }
