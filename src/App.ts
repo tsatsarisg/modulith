@@ -7,12 +7,14 @@ import { MongoAdapter } from './utils/MongoDBAdapter'
 import { getEnv } from './utils/env'
 import helmet from 'helmet'
 import { Server } from 'http'
+import buildComponents, { Components } from './components'
 
 export default class Application {
-    public mongoAdapter: MongoAdapter
-    private app: Express
     private port: string
+    private app: Express
     private server!: Server
+    public mongoAdapter: MongoAdapter
+    private components!: Components
 
     constructor() {
         this.app = express()
@@ -33,6 +35,7 @@ export default class Application {
 
     async start() {
         await this.mongoAdapter.connect()
+        this.components = buildComponents(this.mongoAdapter)
         this.setRoutes()
         this.server = this.app
             .listen(this.port)
@@ -60,6 +63,10 @@ export default class Application {
     }
 
     private setRoutes() {
-        this.app.use('/api', Object.values(routes(this.mongoAdapter)))
+        this.app.use('/api', Object.values(routes(this.components)))
+    }
+
+    public getComponents() {
+        return this.components
     }
 }
