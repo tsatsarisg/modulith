@@ -6,5 +6,12 @@ This modulith is built following the principles of Simon Browns talks and Port a
 
 ### Steps
 
-1. docker compose up
-2. npm run dev
+#### dev
+
+$env:ENVIRONMENT="dev"
+docker-compose up
+
+#### prod
+
+$env:ENVIRONMENT="prod"
+docker-compose up

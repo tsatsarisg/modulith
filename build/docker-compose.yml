@@ -7,17 +7,16 @@ services:
             - 27017:27017
         volumes:
             - data:/data/db
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=admin
-            - MONGO_INITDB_ROOT_PASSWORD=pass123
+        env_file:
+            - ./envs/.env.${ENVIRONMENT}
 
     modulith-node:
         build:
             context: ./..
-            dockerfile: ./build/Dockerfile.dev
+            dockerfile: ./build/docker/Dockerfile.${ENVIRONMENT}
         container_name: modulith-node
         env_file:
-            - ../.env
+            - ./envs/.env.${ENVIRONMENT}
         ports:
             - '8080:8080'
         volumes:
