@@ -1,17 +1,12 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express';
 
-const errorHandler = (
-    err: Error | undefined,
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    if (err) {
-        const message = err.message
-        return res.status(500).json({ message })
-    }
+const errorHandler = (err: Error | undefined, req: Request, res: Response, next: NextFunction) => {
+  if (err) {
+    const message = err.message;
+    return res.status(500).json({ message });
+  }
 
-    next()
-}
+  next();
+};
 
-export default errorHandler
+export default errorHandler;

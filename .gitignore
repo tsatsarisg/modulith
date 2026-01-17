@@ -1,4 +1,38 @@
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build outputs
 dist
+*.tsbuildinfo
+
+# Environment files
 .env
+.env.local
+.env.*.local
+deployment/envs/.env.*
+
+# Testing
 coverage
+.nyc_output
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
