@@ -1,33 +1,19 @@
-import { Collection } from 'mongodb';
-import FranchiseRepository from './franchise.repository';
-import FranchiseService from './franchise.service';
-
-export type FranchiseProps = {
-  name: string;
-  category: FranchiseCategory;
-};
-
-export type FranchiseCategory = 'Carwash' | 'Bakery';
-
-export interface Franchise {
-  name: string;
-  category: FranchiseCategory;
-}
+import { IFranchise } from './franchise.model';
+import { getFranchiseQuery } from './queries/getFranchise';
+import { getFranchisesQuery } from './queries/getFranchises';
+import { createFranchiseCommand } from './commands/createFranchise';
+import { deleteFranchiseCommand } from './commands/deleteFranchise';
 
 export interface IFranchisesComponent {
-  getFranchise(id: string): Promise<Franchise>;
-  getFranchises(): Promise<Franchise[]>;
-  createFranchise(props: FranchiseProps): Promise<Franchise>;
+  getFranchise(id: string): Promise<IFranchise>;
+  getFranchises(): Promise<IFranchise[]>;
+  createFranchise(props: IFranchise): Promise<IFranchise>;
   deleteFranchise(id: string): Promise<void>;
 }
 
-export interface FranchiseComponentDependencies {
-  franchiseCollection: Collection;
-}
-
-export const buildFranchisesComponent = ({
-  franchiseCollection,
-}: FranchiseComponentDependencies): IFranchisesComponent => {
-  const franchiseRepository = new FranchiseRepository(franchiseCollection);
-  return new FranchiseService(franchiseRepository);
+export const franchisesComponent: IFranchisesComponent = {
+  getFranchise: getFranchiseQuery,
+  getFranchises: getFranchisesQuery,
+  createFranchise: createFranchiseCommand,
+  deleteFranchise: deleteFranchiseCommand,
 };

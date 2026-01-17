@@ -1,21 +1,19 @@
-import { Collection } from 'mongodb';
-import User from './user.model';
-import UserRepository from './user.repository';
-import UserService from './user.service';
+import { IUser } from './user.model';
+import { getUserQuery } from './queries/getUser';
+import { getUsersQuery } from './queries/getUsers';
+import { createUserCommand } from './commands/createUser';
+import { deleteUserCommand } from './commands/deleteUser';
 
 export interface IUsersComponent {
-  getUser(id: string): Promise<User>;
-  createUser(props: { email: string; password: string }): Promise<User>;
+  getUser(id: string): Promise<IUser>;
+  getUsers(): Promise<IUser[]>;
+  createUser(props: IUser): Promise<IUser>;
   deleteUser(id: string): Promise<void>;
 }
 
-export interface UserComponentDependencies {
-  userCollection: Collection;
-}
-
-export const buildUsersComponent = ({
-  userCollection,
-}: UserComponentDependencies): IUsersComponent => {
-  const userRepo = new UserRepository(userCollection);
-  return new UserService(userRepo);
+export const usersComponent: IUsersComponent = {
+  getUser: getUserQuery,
+  getUsers: getUsersQuery,
+  createUser: createUserCommand,
+  deleteUser: deleteUserCommand,
 };

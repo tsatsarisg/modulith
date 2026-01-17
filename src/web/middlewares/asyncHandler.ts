@@ -1,7 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleCallback = (callback: any) => {
+type AsyncRequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => Promise<void | Response>;
+
+export const asyncHandler = (callback: AsyncRequestHandler) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await callback(req, res, next);
@@ -10,5 +15,3 @@ const handleCallback = (callback: any) => {
     }
   };
 };
-
-export default handleCallback;

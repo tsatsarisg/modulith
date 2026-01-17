@@ -1,8 +1,13 @@
-import { Components } from './components';
-import franchiseRouter from './web/franchise/franchise.route';
-import userRouter from './web/user/user.route';
+import { Router } from 'express';
+import { usersComponent, franchisesComponent } from './components';
+import { createFranchiseRoutes } from './web/franchise/routes';
+import { createUserRoutes } from './web/user/routes';
 
-export default (components: Components) => ({
-  franchiseRoutes: franchiseRouter(components),
-  userRoutes: userRouter(components),
-});
+export default (): Router => {
+  const router = Router();
+  
+  router.use('/franchises', createFranchiseRoutes(franchisesComponent));
+  router.use('/users', createUserRoutes(usersComponent));
+  
+  return router;
+};
