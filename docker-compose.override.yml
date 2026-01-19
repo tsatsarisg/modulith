@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  modulith-api:
+    volumes:
+      - ./src:/app/src:delegated
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DEBUG=*
+      - LOG_LEVEL=debug
+
+  mongodb:
+    ports:
+      - "27017:27017"
