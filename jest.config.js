@@ -4,4 +4,6 @@ module.exports = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
     },
+    testTimeout: 30000,
+    setupFilesAfterEnv: [],
 }

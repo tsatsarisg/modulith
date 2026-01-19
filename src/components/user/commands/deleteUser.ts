@@ -1,8 +1,14 @@
 import { UserModel } from '../user.model';
+import { Result, ok, err } from 'neverthrow';
+import { AppError, AppErrorType, createAppError } from '../../../shared/errors';
 
-export const deleteUserCommand = async (id: string): Promise<void> => {
+export const deleteUserCommand = async (id: string): Promise<Result<void, AppError>> => {
   const result = await UserModel.findByIdAndDelete(id);
   if (!result) {
-    throw new Error('User not found');
+    return err(createAppError(
+      AppErrorType.NOT_FOUND,
+      `User with id ${id} not found`
+    ));
   }
+  return ok(undefined);
 };

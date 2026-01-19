@@ -3,12 +3,14 @@ import { getFranchiseQuery } from './queries/getFranchise';
 import { getFranchisesQuery } from './queries/getFranchises';
 import { createFranchiseCommand } from './commands/createFranchise';
 import { deleteFranchiseCommand } from './commands/deleteFranchise';
+import { Result } from 'neverthrow';
+import { AppError } from '../../shared/errors';
 
 export interface IFranchisesComponent {
-  getFranchise(id: string): Promise<IFranchise>;
+  getFranchise(id: string): Promise<Result<IFranchise, AppError>>;
   getFranchises(): Promise<IFranchise[]>;
   createFranchise(props: IFranchise): Promise<IFranchise>;
-  deleteFranchise(id: string): Promise<void>;
+  deleteFranchise(id: string): Promise<Result<void, AppError>>;
 }
 
 export const franchisesComponent: IFranchisesComponent = {
