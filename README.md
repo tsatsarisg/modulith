@@ -162,8 +162,3 @@ The Docker Compose files are in `deployment/docker-compose.yml` and the env file
 - Entry point: `src/index.ts`
 - App configuration and routes: `src/App.ts`, `src/routes.ts`
 - Feature slices live under `src/components/` (e.g. `auth`, `user`, `franchise`)
-
-## License
-
-ISC
-
